@@ -1,5 +1,5 @@
 "use strict";
-import * as service from "../services/agendas.services.js";
+import * as service from "../services/bloques.services.js";
 
 // Crear 
 export async function crear(req, res) {
