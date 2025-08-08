@@ -34,25 +34,25 @@ export async function editarBloque(id, data, user) {
     if (!bloque) return [null, "Bloque no encontrado o no autorizado"];
     if (bloque.estado !== "pendiente") return [null, "Solo se pueden editar bloques no asignados"];
 
-    reclamo.tipo = data.tipo || reclamo.tipo;
-    reclamo.observacion = data.observacion || reclamo.observacion;
+    bloque.tipo = data.tipo || bloque.tipo;
+    bloue.observacion = data.observacion || bloque.observacion;
 
-    await repo.save(reclamo);
-    return [reclamo, null];
+    await repo.save(bloque);
+    return [bloque, null];
   } catch (err) {
     console.error(err);
-    return [null, "Error al editar el reclamo"];
+    return [null, "Error al editar el bloque"];
   }
 }
 
-// Eliminar reclamo (DELETE)
-export async function eliminarReclamo(id, user) {
+// Eliminar bloque (DELETE)
+export async function eliminarBloque(id, user) {
   try {
-    const repo = AppDataSource.getRepository(Reclamo);
+    const repo = AppDataSource.getRepository(Bloque);
 
-    // Primero validar que el reclamo existe y pertenece al usuario
-    const reclamo = await repo.createQueryBuilder("reclamo")
-      .leftJoin("reclamo.usuario", "usuario")
+    // Primero validar que el bloque existe y pertenece al usuario
+    const bloque = await repo.createQueryBuilder("bloque")
+      .leftJoin("bloque.usuario", "usuario")
       .where("reclamo.id = :id", { id })
       .andWhere("usuario.id = :userId", { userId: user.id })
       .getOne();
@@ -83,14 +83,14 @@ export async function cambiarEstadoReclamo(id, nuevoEstado, descripcion, user) {
     return [reclamo, null];
   } catch (err) {
     console.error(err);
-    return [null, "Error al cambiar estado del reclamo"];
+    return [null, "Error al cambiar estado del bloque"];
   }
 }
 
-// Listar reclamos
-export async function listarReclamos(user) {
+// Listar bloques
+export async function listarAgenda(user) {
   try {
-    const repo = AppDataSource.getRepository(Reclamo);
+    const repo = AppDataSource.getRepository(Bloque);
 
     let agenda;
     if (user.rol === "profesor") {
@@ -111,20 +111,20 @@ export async function listarReclamos(user) {
 }
 
 // Obtener por ID
-export async function obtenerReclamo(id, user) {
+export async function obtenerBloque(id, user) {
   try {
-    const repo = AppDataSource.getRepository(Reclamo);
+    const repo = AppDataSource.getRepository(Bloque);
     const reclamo = await repo.findOne({ where: { id }, relations: ["usuario"] });
 
-    if (!reclamo) return [null, "Bloque no encontrado"];
+    if (!bloque) return [null, "Bloque no encontrado"];
 
-    if (user.rol === "vecino" && reclamo.usuario.id !== user.id && reclamo.estado !== "resuelto") {
+    if (user.rol === "vecino" && reclamo.usuario.id !== user.id && bloque.estado !== "resuelto") {
       return [null, "Acceso no autorizado"];
     }
 
     return [reclamo, null];
   } catch (err) {
     console.error(err);
-    return [null, "Error al obtener el reclamo"];
+    return [null, "Error al obtener el bloque"];
   }
 }
