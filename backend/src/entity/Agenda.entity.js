@@ -1,9 +1,9 @@
 "use strict";
 import { EntitySchema } from "typeorm";
 
-const ReclamoSchema = new EntitySchema({
-  name: "Reclamo",
-  tableName: "reclamos",
+const AgendaSchema = new EntitySchema({
+  name: "Agenda",
+  tableName: "agendas",
   columns: {
     id: {
       type: "int",
@@ -48,4 +48,4 @@ const ReclamoSchema = new EntitySchema({
   },
 });
 
-export default ReclamoSchema;
+export default AgendaSchema;
