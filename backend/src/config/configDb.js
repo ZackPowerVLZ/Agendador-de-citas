@@ -1,5 +1,9 @@
 "use strict";
 import { DataSource } from "typeorm";
+import AgendaSchema from "../entity/agendas.entity.js";
+import AgendaSchema from "../entity/agenda.entity.js";
+import BloqueSchema from "../entity/bloques.entity.js";
+import BloqueSchema from "../entity/bloque.entity.js";
 import { DATABASE, DB_USERNAME, HOST, PASSWORD } from "./configEnv.js";
 
 export const AppDataSource = new DataSource({
